@@ -13,6 +13,8 @@ Interfaces to python and julia are in development.
 
 You need a FORTRAN-90 compiler and the NetCDF library (with f90 support) installed.
 
+#### Using Make on UNIX like systems
+
 To compile the library and the examples :
 
 - create a 'make.(MY_MACHINE)' file corresponding to your compiler in the 'macro' directory.
@@ -46,6 +48,56 @@ cd examples
 ./random_field_on_the_sphere.x
 ./low_pass_filter_on_the_sphere.x
 ./observation_regression_on_the_sphere.x
+```
+
+#### Using CMake on all platforms (still incomplete)
+
+CMake must be run to configure the native build system - e.g. 'make' on UNIX-like systems or Visual Studio on Windows.
+CMake picks up a target system based on the architecture it is executed on. Default can be overridden via the command line.
+
+Various graphical front-ends do exist for CMake - here the command line tools is used.
+
+##### Confuguration
+
+ - configure the build process
+
+```bash
+cmake --B build.cmake -S .
+```
+
+ - -B <folder> specify the build folder
+ - -S <folder> specify the source code folder
+
+CMake takes a number of command line options - here some of the more frequent ones are mentioned:
+
+ - specify Fortran compiler - e.g. -DCMAKE_Fortran_COMPILER=gfortran (or ifort)
+ - specify install directory - e.g. -DCMAKE_INSTALL_PREFIX=~/local
+
+If no errors has occured the software is ready for building.
+
+##### Compile and optionally install the Fortran component:
+
+ - building the Fortran component - and optional installation (might require elevated priviliges)
+
+```bash
+cmake --build build.cmake --target fortran <install> <--parallel <N> --config=<Release,Debug> >
+```
+Further options to the build process via - cmake --build
+
+##### Testing the pure Fortran implementation (only scores_idealized_example.x so far)
+
+```bash
+cmake --build build.cmake --target examples
+```
+
+The executables are in build.cmake/examples/ - e.g. scores_idealized_example.x
+
+##### Compile and install the python interfacew to 'ensdam'
+
+ - building the Python component - installation using pip (wheel) is done automatically
+
+```bash
+cmake --build build.cmake --target python <--parallel <N> --config=<Release,Debug> >
 ```
 
 ### List of available EnsDAM modules
