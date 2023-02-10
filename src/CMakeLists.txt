@@ -85,15 +85,16 @@ target_include_directories(${PROJECT_NAME}_static
 )
 set_target_properties(${PROJECT_NAME}_static PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
 
-add_library( ${PROJECT_NAME}_shared SHARED $<TARGET_OBJECTS:${PROJECT_NAME}_objects> )
-target_include_directories(${PROJECT_NAME}_shared
-    PUBLIC
-        $<INSTALL_INTERFACE:include>
-        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/modules>
-)
-set_target_properties(${PROJECT_NAME}_shared PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
+#add_library( ${PROJECT_NAME}_shared SHARED $<TARGET_OBJECTS:${PROJECT_NAME}_objects> )
+#target_include_directories(${PROJECT_NAME}_shared
+#PUBLIC
+#$<INSTALL_INTERFACE:include>
+#$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/modules>
+#)
+#set_target_properties(${PROJECT_NAME}_shared PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
 
-install(TARGETS ${PROJECT_NAME}_static ${PROJECT_NAME}_shared
+#install(TARGETS ${PROJECT_NAME}_static ${PROJECT_NAME}_shared
+install(TARGETS ${PROJECT_NAME}_static
 	#        EXPORT pdaf-d-targets
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
